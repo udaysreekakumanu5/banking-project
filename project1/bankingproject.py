@@ -7,7 +7,7 @@ class Hdfc:
     no_account_holders=0
     data={}
     transaction_details={}
-    def init(self,name,mobile,age,gender,aadhar,address,pin,balance):
+    def __init__(self,name,mobile,age,gender,aadhar,address,pin,balance):
         self.name=name
         self.mobile=self.validate_phone(mobile)
         self.age=self.validate_age(age)
@@ -17,11 +17,11 @@ class Hdfc:
         self.balance=balance
         self.address=address
         self.increment_accounts()
-        account_num=500+self.no_account_holders
+        account_num=1000+self.no_account_holders
         self.add_data(account_num,self)
     @classmethod
     def increment_accounts(cls):
-        cls.no_account_holders+=1
+        cls.no_account_holders +=1
     @classmethod
     def add_data(cls,account_num,object_address):
         cls.data[account_num]=object_address
@@ -150,6 +150,24 @@ class Hdfc:
             print("enter valid pin")
         else:
             print("invalid user")
+            
+    @classmethod
+    def create_account(cls):
+        name = input("enter your name:")
+        aadhar = input ("enter your aadhar number" )
+        cls.validate_aadhar(aadhar)
+        mobile = int(input("enter your mobile number"))
+        age = int(input("enter your age"))
+        cls.validate_age(age)
+        gender = input ("enter your gender")
+        address = input("enter your address")
+        pin = int(input("enter your 4 digit valid pin"))
+        cls.validate_pin(pin)
+        balance = int(input("enter the deposit money"))
+        new_customer = cls(name,aadhar,mobile,age,gender,address,pin,balance)
+        print("account created succesfully")
+       # print(f"your account number is {new_customer.account_number}")                     
+    
 
 
     @classmethod
@@ -238,16 +256,18 @@ class Hdfc:
                 print(str(d["DATE"]).center(14),d["TYPE"].center(10),str(d["AMOUNT"]).center(20),str(d["BALANCE"]).ljust(10))
 
 
-cust1=Hdfc("preethi",8903627397,21,"female",123783477983,"hyderabad",1234,50000)
-cust2=Hdfc("sravani",7836494792,20,"female",467283924678,"AP",5678,45000)
-# print(cust1.data)
-# cust1.check_balance()
+cust1=Hdfc("udaysree",8903627397,21,"female",123783477983,"hyderabad",1234,50000)
+cust2=Hdfc("anusha",7836494792,20,"female",467283924678,"AP",5678,45000)
+#print(cust1.data)
+#cust1.check_balance()
 # cust1.deposit()
-cust1.withdraw()
+#cust1.withdraw()
 # cust1.change_pin()
 # print(cust1.pin)
 # cust1.modify_user_details()
 # print(cust1.name)
 # cust1.transfer_money()
 # print(cust1.balance)
-cust1.mini_statement()
+#cust1.mini_statement()
+#print(Hdfc.data.keys())
+Hdfc.create_account()
